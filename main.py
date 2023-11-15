@@ -1,14 +1,22 @@
-import telebot
+import asyncio, logging
+from aiogram import Bot, Dispatcher
+from config import BOT_TOKEN
+from handlers import weather, start, help
 
-bot = telebot.TeleBot('6142962089:AAHY38-QZlbOuJ19Z_anyddIgtCWDCZTryg')
-
-
-@bot.message_handler()
-def hi(message):
-    if message.text.lower() == 'привет':
-        bot.send_message(message.chat.id, "Здаров")
-    if message.text.lower() == '/hello-world':
-        bot.send_message(message.chat.id, 'Привет!')
+bot = Bot(BOT_TOKEN)
+dp = Dispatcher()
 
 
-bot.polling(none_stop=True)
+async def main():
+    dp.include_routers(
+        weather.router,
+        start.router,
+        help.router
+    )
+    await bot.delete_webhook(drop_pending_updates=True)
+    await dp.start_polling(bot)
+
+
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+    asyncio.run(main())
