@@ -21,8 +21,14 @@ async def set_weather_state(message: Message, state: FSMContext):
 @router.message(WeatherState.city_question)
 async def weather_output(message: Message, state: FSMContext):
     weather_now = get_weather(message.text, API_KEY)
-    if weather_now != 'Проверьте название города':
-        await state.clear()
-        await message.answer(weather_now, reply_markup=main_kb)
+    if message.text != '/exit':
+
+        if weather_now != 'Проверьте название города':
+            await state.clear()
+            await message.answer(weather_now, reply_markup=main_kb)
+        else:
+            await message.answer(weather_now)
+
     else:
-        await message.answer(weather_now)
+        await state.clear()
+        await message.answer(text='Главное меню')

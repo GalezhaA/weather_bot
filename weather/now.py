@@ -22,7 +22,7 @@ def get_weather(city, open_weather_token):
             )
         )
         data = r.json()
-        # pprint(data)
+        pprint(data)
 
         city = data['name']
         temperature = data['main']['temp']

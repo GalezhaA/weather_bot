@@ -5,3 +5,6 @@ class WeatherState(StatesGroup):
     city_question = State()
 
 
+class WeatherThreeState(StatesGroup):
+    city_question = State()
+
