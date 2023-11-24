@@ -1,3 +1,7 @@
+"""
+Обработчик команды /help
+"""
+
 from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import Command
@@ -8,4 +12,9 @@ router = Router()
 
 @router.message(Command('help'))
 async def start_func(message: Message):
+    """
+    Отправляет пользователю информацию о боте
+    :param message: Message
+    :return:
+    """
     await message.answer(text=f'Введите /weather чтобы узнать погоду', reply_markup=main_kb)

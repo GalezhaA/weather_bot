@@ -1,3 +1,7 @@
+"""
+Запрос информации о погоде в данный момент по API
+"""
+
 from pprint import pprint
 
 import requests
@@ -5,6 +9,12 @@ import config
 
 
 def get_weather(city, open_weather_token):
+    """
+    Делает request запрос, получает информацию, преобразовывает в читаемый для пользователя вид.
+    :param city: str
+    :param open_weather_token: str
+    :return: str
+    """
     code_to_smile = {
         'Clear': 'Ясно \U0001F31E',
         'Clouds': 'Облачно \U0001F4A8',
@@ -22,7 +32,7 @@ def get_weather(city, open_weather_token):
             )
         )
         data = r.json()
-        pprint(data)
+        # pprint(data)
 
         city = data['name']
         temperature = data['main']['temp']
@@ -37,8 +47,8 @@ def get_weather(city, open_weather_token):
         country = data['sys']['country']
 
         return (f'Город: {city}\nТемпература: {temperature}C\n'
-              f'Влажность: {humidity}%\nДавление: {pressure} мм. рт. ст.\n'
-              f'Скорость ветра: {wind_speed} м/с\n{wd}\n'
+                f'Влажность: {humidity}%\nДавление: {pressure} мм. рт. ст.\n'
+                f'Скорость ветра: {wind_speed} м/с\n{wd}\n'
                 f'Страна: {country}')
 
     except Exception:

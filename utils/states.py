@@ -1,3 +1,7 @@
+"""
+Стэйты
+"""
+
 from aiogram.fsm.state import StatesGroup, State
 
 
@@ -8,3 +12,6 @@ class WeatherState(StatesGroup):
 class WeatherThreeState(StatesGroup):
     city_question = State()
 
+
+class WeatherHistoryState(StatesGroup):
+    city_question = State()
