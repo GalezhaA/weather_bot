@@ -1,0 +1,22 @@
+"""
+Описание запросов
+"""
+
+Запрос к openweathermap.org:
+'https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}&lang=ru&units=metric'
+city_name - город, по которому надо найти информацию
+API_key - ключ, получаемый на сайте openweathermap.org при регистрации
+В ответ получаем json с подробной информацией о погоде
+
+Запросы к WeatherAPI.com:
+
+Прогноз погоды на 3 дня в выбранном городе
+https://weatherapi-com.p.rapidapi.com/forecast.json
+В ответ получаем json с подробной информацией о погоде
+
+История погоды за последние 7 дней в выбранном городе
+https://weatherapi-com.p.rapidapi.com/history.json
+В ответ получаем json с подробной информацией о погоде
+
+
+Использование разных сайтов сделано для увеличения количества запросов

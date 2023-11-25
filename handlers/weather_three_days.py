@@ -6,10 +6,10 @@
 
 from aiogram import Router
 from aiogram.types import Message
-from aiogram.filters import Command
+from aiogram import F
 from aiogram.fsm.context import FSMContext
 
-from databases.weather_db import User
+from databases.weather_db import HistoryDataModel
 from utils.keyboards import main_kb, exit_btn
 from utils.states import WeatherThreeState
 from weather.three_days import get_weather_three_days
@@ -18,7 +18,7 @@ from weather.three_days import get_weather_three_days
 router = Router()
 
 
-@router.message(Command('weather3'))
+@router.message(F.text == 'Прогноз погоды на 3 дня')
 async def set_weather_state(message: Message, state: FSMContext):
     """
         Отправляет пользователю сообщение с запросом города.
@@ -42,13 +42,16 @@ async def weather_output(message: Message, state: FSMContext):
     :return: None
     """
     weather_three_days_for_message = get_weather_three_days(message.text)
-    if weather_three_days_for_message != 'Проверьте название города':
-        User.create(
-            tg_id=message.from_user.id,
-            first_name=message.from_user.username,
-            data=weather_three_days_for_message
-        )
-        await state.clear()
-        await message.answer(text=weather_three_days_for_message, reply_markup=main_kb)
+    if message.text != 'Выйти в меню':
+        if weather_three_days_for_message != 'Проверьте название города':
+            HistoryDataModel.create(
+                tg_id=message.from_user.id,
+                data=weather_three_days_for_message
+            )
+            await state.clear()
+            await message.answer(text=weather_three_days_for_message, reply_markup=main_kb)
+        else:
+            await message.answer(weather_three_days_for_message)
     else:
-        await message.answer(weather_three_days_for_message)
+        await state.clear()
+        await message.answer(text='Главное меню')

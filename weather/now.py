@@ -7,15 +7,7 @@ from pprint import pprint
 import requests
 import config
 
-
-def get_weather(city, open_weather_token):
-    """
-    Делает request запрос, получает информацию, преобразовывает в читаемый для пользователя вид.
-    :param city: str
-    :param open_weather_token: str
-    :return: str
-    """
-    code_to_smile = {
+code_to_smile = {
         'Clear': 'Ясно \U0001F31E',
         'Clouds': 'Облачно \U0001F4A8',
         'Rain': 'Дождь \U0001F4A6',
@@ -25,6 +17,15 @@ def get_weather(city, open_weather_token):
         'Mist': 'Туман \U0001F32B'
     }
 
+
+def get_weather(city, open_weather_token):
+    """
+    Делает request запрос, получает информацию, преобразовывает в читаемый для пользователя вид.
+    :param city: str
+    :param open_weather_token: str
+    :return: str
+    """
+
     try:
         r = requests.get(
             'https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}&lang=ru&units=metric'.format(
@@ -32,7 +33,6 @@ def get_weather(city, open_weather_token):
             )
         )
         data = r.json()
-        # pprint(data)
 
         city = data['name']
         temperature = data['main']['temp']
@@ -46,10 +46,11 @@ def get_weather(city, open_weather_token):
             wd = 'Посмотри в окно. Не пойму, что там за погода!'
         country = data['sys']['country']
 
-        return (f'Город: {city}\nТемпература: {temperature}C\n'
-                f'Влажность: {humidity}%\nДавление: {pressure} мм. рт. ст.\n'
-                f'Скорость ветра: {wind_speed} м/с\n{wd}\n'
-                f'Страна: {country}')
+        output = (f'Город: {city}\nТемпература: {temperature}C\n'
+                  f'Влажность: {humidity}%\nДавление: {pressure} мм. рт. ст.\n'
+                  f'Скорость ветра: {wind_speed} м/с\n{wd}\n'
+                  f'Страна: {country}')
+        return output
 
     except Exception:
         return 'Проверьте название города'

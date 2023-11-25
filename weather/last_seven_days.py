@@ -2,7 +2,7 @@
 Функции для запроса к API weatherapi-com.p.rapidapi.com
 Информацию о погоде за последние 7 дней в выбранном городе
 """
-import config
+import APIs.api_urls as API_links
 import datetime
 from datetime import timedelta
 
@@ -21,8 +21,8 @@ def weather_history_seven_days(city: str) -> dict|str:
     date = today - timedelta(days=7)
     querystring = {"q": f"{city}", "dt": date, "lang": "ru", "end_dt": today}
     response = requests.get(
-        config.history_seven_days_url,
-        headers=config.history_seven_days_headers,
+        API_links.history_seven_days_url,
+        headers=API_links.history_seven_days_headers,
         params=querystring
     )
     if list(response.json().keys())[0] == 'error':

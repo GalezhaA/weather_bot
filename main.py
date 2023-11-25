@@ -5,9 +5,11 @@
 import asyncio, logging
 from aiogram import Bot, Dispatcher
 from config import BOT_TOKEN
+
+from databases.weather_db import db, HistoryDataModel
 from handlers import weather_now, start, help,weather_three_days, history, weathers_history
 
-bot = Bot(BOT_TOKEN)
+bot = Bot(BOT_TOKEN)  # Cюда вставлять токен бота
 dp = Dispatcher()
 
 
@@ -29,5 +31,8 @@ async def main():
 
 
 if __name__ == '__main__':
+    db.connect(reuse_if_open=True)
+    if not HistoryDataModel.table_exists():
+        db.create_tables([HistoryDataModel])
     logging.basicConfig(level=logging.INFO)
     asyncio.run(main())
