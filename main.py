@@ -3,14 +3,17 @@
 """
 
 import asyncio, logging
-from aiogram import Bot, Dispatcher
+from aiogram import Bot, Dispatcher, F
+from aiogram.types import Message
+
 from config import BOT_TOKEN
 
 from databases.weather_db import db, HistoryDataModel
-from handlers import weather_now, start, help,weather_three_days, history, weathers_history
+from handlers import weather_now, start, help,weather_three_days, history, weathers_history, any_word
 
 bot = Bot(BOT_TOKEN)  # Cюда вставлять токен бота
 dp = Dispatcher()
+
 
 
 async def main():
@@ -24,7 +27,8 @@ async def main():
         start.router,
         help.router,
         history.router,
-        weathers_history.router
+        weathers_history.router,
+        any_word.router
     )
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)

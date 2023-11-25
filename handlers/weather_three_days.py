@@ -51,7 +51,7 @@ async def weather_output(message: Message, state: FSMContext):
             await state.clear()
             await message.answer(text=weather_three_days_for_message, reply_markup=main_kb)
         else:
-            await message.answer(weather_three_days_for_message)
+            await message.answer(weather_three_days_for_message, reply_markup=exit_btn)
     else:
         await state.clear()
-        await message.answer(text='Главное меню')
+        await message.answer(text='Главное меню', reply_markup=main_kb)
