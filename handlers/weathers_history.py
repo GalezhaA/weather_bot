@@ -54,4 +54,4 @@ async def send_weather(message: Message, state: FSMContext):
             await message.answer(text=weather_history, reply_markup=exit_btn)
     else:
         await state.clear()
-        await message.answer(text='Главное меню')
+        await message.answer(text='Главное меню', reply_markup=main_kb)
