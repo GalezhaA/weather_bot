@@ -3,8 +3,7 @@
 """
 
 import asyncio, logging
-from aiogram import Bot, Dispatcher, F
-from aiogram.types import Message
+from aiogram import Bot, Dispatcher
 
 from config import BOT_TOKEN
 
@@ -13,7 +12,6 @@ from handlers import weather_now, start, help,weather_three_days, history, weath
 
 bot = Bot(BOT_TOKEN)  # Cюда вставлять токен бота
 dp = Dispatcher()
-
 
 
 async def main():
